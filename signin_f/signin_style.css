@@ -1,3 +1,81 @@
+
+@font-face {
+    font-family: MyFont;
+    src: url(../UI/ui/fonts/OpenSans-Regular.ttf);
+}
+
 body {
+    font-family: MyFont;
     background-color: rgb(0, 33, 95);
+}
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.main-wrap {
+    background-color: rgb(1, 66, 187);
+    border-radius: .5rem;
+    text-align: center;
+    padding: 1.5rem 3rem;
+    color: aliceblue;
+    margin-top: 2rem;
+
+    box-shadow: 0px 8px 8px rgb(0, 12, 34);
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-wrapper input{
+    font-size: 1.5rem;
+    padding: .5rem;
+    border-radius: .5rem;
+}
+
+.gender-input-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.gender-input-wrap label{
+   font-size: 1.3rem;
+   cursor: pointer;
+}
+
+.signin-btn {
+    align-self: center;
+    font-size: 1.6rem;
+    padding: .5rem 1rem;
+    color: aliceblue;
+    background-color: rgb(21, 100, 202);
+    border-radius: .5rem;
+    border: 1px solid white;
+    cursor: pointer;
+}
+
+.signin-btn:hover {
+    background-color: rgb(11, 74, 156);
+}
+
+.messages-wrapper {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 1.5rem;
+}
+
+.success {
+    color: rgb(0, 255, 0);
+    font-size: 1.5rem;
 }
