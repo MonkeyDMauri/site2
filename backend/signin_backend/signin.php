@@ -2,8 +2,8 @@
 
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $username = $_POST["username"];
-    $email = $_POST["email"];
+    $username = strtolower($_POST["username"]);
+    $email = strtolower($_POST["email"]);
     $gender = $_POST["gender"];
     $pwd = $_POST["pwd"];
 
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         // checking if any errors where found, if any, user will be redirected to same page and error messages will be shown.
         if ($errors) {
-            $_SESSION["signin_errors"] = $errors;
+            $_SESSION["errors"] = $errors;
             header("location: ../../signin_f/signin_page.php");
             die();
         }

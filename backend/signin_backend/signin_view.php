@@ -2,13 +2,13 @@
 
 
 function show_messages() {
-    if (isset($_SESSION["signin_errors"])) {
-        $errors = $_SESSION["signin_errors"];
+    if (isset($_SESSION["errors"])) {
+        $errors = $_SESSION["errors"];
 
         foreach($errors as $error) {
             echo "<div class='error'>" . $error . "</div>";
         }
-        unset($_SESSION["signin_errors"]);
+        unset($_SESSION["errors"]);
     }
 
     if (isset($_SESSION["account_created"])) {

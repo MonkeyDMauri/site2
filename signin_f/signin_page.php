@@ -9,7 +9,7 @@ require_once "../backend/signin_backend/signin_view.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signin Page</title>
+    <title>Maubook</title>
     <link rel="stylesheet" href="./signin_style.css">
 </head>
 <body>
@@ -35,6 +35,8 @@ require_once "../backend/signin_backend/signin_view.php";
                     </div>
                     <input type="password" name="pwd" placeholder="Password">
                     <button class="signin-btn">Sign in</button>
+
+                    <div class="q-link"><a href="../login_f/login_page.php">Already have an account?</a></div>
                 </div>
             </form>
         </div>
