@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // checking if any errors where found, if any, user will be redirected to same page and error messages will be shown.
         if ($errors) {
             $_SESSION["signin_errors"] = $errors;
-            header("location: ../../signin_f/signin_page.phpi");
+            header("location: ../../signin_f/signin_page.php");
             die();
         }
 
