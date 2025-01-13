@@ -1,0 +1,65 @@
+@font-face {
+    font-family: MyFont;
+    src: url(../UI/ui/fonts/OpenSans-Regular.ttf);
+}
+
+body {
+    font-family: MyFont;
+    background-color: rgb(31, 37, 46);
+}
+
+.main-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.main-wrap {
+    display: flex;
+    margin-top: 3.5rem;
+}
+
+.left-panel {
+    min-width: 400px;
+    min-height: 700px;
+    background-color: rgb(0, 33, 95);
+}
+
+
+
+/* RIGHT PANEL */
+.right-panel {
+    min-width: 800px;
+    min-height: 700px;
+    background-color: purple;
+}
+
+.right-panel-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(1, 47, 134);
+    width: 800px;
+    height: 100px;
+}
+
+.right-panel-header > h1 {
+    margin:0; 
+    color:white;
+    font-size: 3rem;
+}
+
+.inner-panels-wrapper {
+    display: flex;
+}
+
+.inner-left-panel {
+    min-height: 600px;
+    background: rgb(1, 61, 173);
+    flex: 1;
+}
+
+.inner-right-panel {
+    min-height: 600px;
+    background: rgb(56, 104, 194);
+    flex: 2;
+}

@@ -36,8 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
             die();
         }
 
-        echo get_user($pdo, $username);
-        echo "hi" . $username;
+        $_SESSION["user_username"] = $username;
+        header("location: ../../chat_f/chat_page.php");
+        die();
     } catch(PDOException $e) {
         die($e->getMessage());
     }
