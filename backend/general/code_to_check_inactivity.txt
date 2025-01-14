@@ -1,0 +1,25 @@
+let activityTimeout;
+
+function resetActivityTimeout() {
+    clearTimeout(activityTimeout);
+    activityTimeout = setTimeout(sendKeepAlive, 5 * 60 * 1000); // 5 minutes
+}
+
+function sendKeepAlive() {
+    fetch('/keep_alive.php')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            resetActivityTimeout();
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+document.addEventListener('keydown', resetActivityTimeout);
+document.addEventListener('mousemove', resetActivityTimeout);
+document.addEventListener('click', resetActivityTimeout);
+
+resetActivityTimeout(); // Initialize the timeout

@@ -37,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === 'POST') {
         }
 
         $_SESSION["user_username"] = $username;
+        $_SESSION["logged_in"] = true;
         header("location: ../../chat_f/chat_page.php");
         die();
     } catch(PDOException $e) {
