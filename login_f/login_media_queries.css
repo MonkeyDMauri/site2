@@ -1,0 +1,15 @@
+
+
+@media(max-width: 450px) {
+    .form-wrapper input {
+        font-size: 1rem
+    }
+
+    .main-wrap {
+        padding: 2rem 1.5rem;
+    }
+
+    .q-link a {
+        font-size: 1rem;
+    }
+}

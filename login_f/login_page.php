@@ -11,6 +11,7 @@ require_once "../backend/signin_backend/signin_view.php";
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maubook</title>
     <link rel="stylesheet" href="./login_style.css">
+    <link rel="stylesheet" href="./login_media_queries.css">
 </head>
 <body>
 
