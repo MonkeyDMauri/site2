@@ -30,10 +30,19 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                 </div>
 
                 <div class="left-panel-buttons-wrap">
-                    <label for="radio-show-chats" class="left-panel-btn">Chat</label>
-                    <label for="radio-hide-chats" class="left-panel-btn">Contacts</label>
-                    <label for="radio-hide-chats" class="left-panel-btn">Settings</label>
-                    <label class="left-panel-btn">Logout</label>
+                    <label for="radio-show-chats" class="left-panel-btn">
+                        Chat 
+                        <img src="../UI/ui/icons/Chats-icon.png" alt="chats-icon" class="left-panel-button-icons">
+                    </label>
+                    <label for="radio-hide-chats" class="left-panel-btn">
+                        Contacts
+                        <img src="../UI/ui/icons/contact-icon.png" alt="chats-icon" class="left-panel-button-icons">
+                    </label>
+                    <label for="radio-hide-chats" class="left-panel-btn">
+                        Settings
+                        <img src="../UI/ui/icons/settings.png" alt="chats-icon" class="left-panel-button-icons">
+                    </label>
+                    <label class="left-panel-btn left-panel-logout-btn">Logout</label>
                 </div>
             </div>
 
@@ -47,6 +56,15 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                     <div class="inner-left-panel"></div>
                     <div class="inner-right-panel"></div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="logout-popup-wrapper">
+        <div class="logout-popup-wrap">
+            <h1 style="text-align:center;">Do you want to logout?</h1>
+            <div class="logout-btns-wrap">
+                <button class="logout-btn logout-btn-no">No</button>
+                <button class="logout-btn logout-btn-yes">Yes</button>
             </div>
         </div>
     </div>

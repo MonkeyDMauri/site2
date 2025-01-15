@@ -1,8 +1,54 @@
 
-
 function _(element) {
     return document.querySelector(element);
 }
+
+// LOGOUT CODE.
+
+// buttons for logout.
+const logoutBtn = _(".left-panel-logout-btn");
+const logoutNo = _(".logout-btn-no");
+const logoutYes = _(".logout-btn-yes");
+
+logoutBtn.addEventListener("click", toggle_logout_popup);
+logoutNo.addEventListener("click", toggle_logout_popup);
+
+document.addEventListener("click", e => {
+    if (e.target.matches(".logout-popup-wrapper")) {
+        toggle_logout_popup();
+
+    }
+})
+
+
+
+// function to show or hide the logout popup.
+function toggle_logout_popup() {
+    const logoutWrapper = _(".logout-popup-wrapper");
+    logoutWrapper.classList.toggle("active");
+    _("body").classList.toggle("no-scroll");
+}
+
+logoutYes.addEventListener("click", logout);
+
+// function to log user out
+function logout() {
+    fetch("../backend/general/logout.php")
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = "../login_f/login_page.php";
+        }
+    })
+}
+
+
+
+
+
+
+
+
 
 // CODE TO SHOW USER INFO IN LEFT PANEL, PIC PROFILE, USERNAME AND EMAIL
 
