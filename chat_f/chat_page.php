@@ -28,6 +28,13 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                     </div>
                    
                 </div>
+
+                <div class="left-panel-buttons-wrap">
+                    <label for="radio-show-chats" class="left-panel-btn">Chat</label>
+                    <label for="radio-hide-chats" class="left-panel-btn">Contacts</label>
+                    <label for="radio-hide-chats" class="left-panel-btn">Settings</label>
+                    <label class="left-panel-btn">Logout</label>
+                </div>
             </div>
 
             <div class="right-panel">

@@ -53,6 +53,23 @@ body {
     opacity: .6;
 }
 
+.left-panel-buttons-wrap {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    
+}
+
+.left-panel-btn {
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: solid white 1px;
+    padding: 1rem;
+    background-color: rgb(56, 104, 194);
+    cursor: pointer;
+}
+
 
 
 /* RIGHT PANEL */
@@ -96,4 +113,8 @@ body {
 
 #radio-hide-chats:checked ~ .inner-right-panel{
     flex: 0;
+}
+
+.inner-panels-wrapper input {
+    display: none;
 }
