@@ -178,6 +178,36 @@ body.no-scroll {
     flex: 0;
 }
 
-.inner-panels-wrapper input {
+.inner-panels-wrapper > input {
     display: none;
+}
+
+/*INNER LEFT PANEL*/
+
+.settings-profile-pic {
+    height: 140px;
+    width: 140px;
+}
+
+.inner-left-panel-content {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.chage-pic-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.change-profile-pic-btn {
+    font-size: 1.6rem;
+    background-color: rgb(56, 104, 194);
+    color: white;
+    padding: 1rem;
+    border-radius: .5rem;
+    font-weight: 600;
+    cursor: pointer;
 }

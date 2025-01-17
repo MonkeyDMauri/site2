@@ -43,13 +43,6 @@ function logout() {
 }
 
 
-
-
-
-
-
-
-
 // CODE TO SHOW USER INFO IN LEFT PANEL, PIC PROFILE, USERNAME AND EMAIL
 
 
@@ -104,5 +97,75 @@ function display_user_info_in_left_panel(userInfo) {
         <div class="username-left-panel">${userInfo.username}</div>
         <div class="email-left-panel">${userInfo.email}</div>
     `;
+
+}
+
+// CODE TO SHOW SETTINGS
+
+const settingsBtn = _(".settings-btn");
+settingsBtn.addEventListener("click", show_settings);
+
+function show_settings() {
+
+    // grabbing and cleaning div where settings will be displayed.
+    const innerLeftPanelContent = _(".inner-left-panel-content");
+    innerLeftPanelContent.innerHTML = " ";
+
+    // displaying profile picture depeding on users img
+
+    if (!loggedUserInfo.img) {
+        innerLeftPanelContent.innerHTML = `
+
+        <div class="chage-pic-wrapper">
+            <div class="settings-left-panel">
+                <img src="${loggedUserInfo.gender === "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}"
+                class="settings-profile-pic">
+            </div>
+
+            <label for="change-pic-input" class="change-profile-pic-btn">Change picture</label>
+            <input type="file" class="change-pic-input" id="change-pic-input" style="display:none;">
+        </div>
+
+        `;
+    }
+
+    // this line has to go inside this function just so we can trigger a function if the user selects a pic to upload
+    document.querySelector(".change-pic-input").addEventListener("change", e => {
+        upload_new_profile_pic(e.target.files);
+    });
+}
+
+
+// function to upload pic to working directory and also save it to database.
+async function upload_new_profile_pic(files) {
+
+    // storing image in a form.
+    let formFile = new FormData();
+    formFile.append("file", files[0]);
+    try {
+        // sending formfile to PHP file to handle uploading process.
+        const res = await fetch("../backend/chat_backend/upload_new_profile_pic.php", {
+            method: "POST",
+            body: formFile
+        });
+
+        if (!res.ok) {
+            throw new Error("Network response was not ok:", res.status);
+        }
+
+        const data = await res.json();
+
+        if (data.success) {
+            console.log("Pic was uploaded");
+            console.log("image details:", data.name);
+        } else {
+            console.log(data.error);
+        }
+    } catch(err) {
+        console.log(err)
+    }
+
+    
+
 
 }

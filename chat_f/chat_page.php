@@ -30,15 +30,15 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                 </div>
 
                 <div class="left-panel-buttons-wrap">
-                    <label for="radio-show-chats" class="left-panel-btn">
+                    <label for="radio-show-chats" class="left-panel-btn chats-btn">
                         Chat 
                         <img src="../UI/ui/icons/Chats-icon.png" alt="chats-icon" class="left-panel-button-icons">
                     </label>
-                    <label for="radio-hide-chats" class="left-panel-btn">
+                    <label for="radio-hide-chats" class="left-panel-btn contacts-btn">
                         Contacts
                         <img src="../UI/ui/icons/contact-icon.png" alt="chats-icon" class="left-panel-button-icons">
                     </label>
-                    <label for="radio-hide-chats" class="left-panel-btn">
+                    <label for="radio-hide-chats" class="left-panel-btn settings-btn">
                         Settings
                         <img src="../UI/ui/icons/settings.png" alt="chats-icon" class="left-panel-button-icons">
                     </label>
@@ -53,8 +53,16 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                 <div class="inner-panels-wrapper">
                     <input type="radio" name="radio" id="radio-show-chats">
                     <input type="radio" name="radio" id="radio-hide-chats" checked>
-                    <div class="inner-left-panel"></div>
-                    <div class="inner-right-panel"></div>
+                    <div class="inner-left-panel">
+                        <div class="inner-left-panel-content">
+                            <!-- this here will be filled with data depending on wether the user wants to see the contacts, chats, or settings. -->
+                        </div>
+                    </div>
+                    <div class="inner-right-panel">
+                        <div class="inner-right-panel-content">
+                            <!-- this here will be filled with data depending on wether the user wants to see the contacts, chats, or settings. -->
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
