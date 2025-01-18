@@ -193,14 +193,16 @@ body.no-scroll {
 .settings-profile-pic {
     height: 160px;
     width: 160px;
+    border-radius: .2rem;
 }
 
-.inner-left-panel-content {
+.inner-left-panel-content.flex {
     display: flex;
     justify-content: center;
     padding: 1rem;
     gap:1rem;
 }
+
 
 .chage-pic-wrapper {
     display: flex;
@@ -226,4 +228,28 @@ body.no-scroll {
     padding: 1rem;
     border-radius: .5rem;
     color: aliceblue;
+}
+
+/*CONTACTS STYLE*/
+
+.contacts-wrapper {
+    /* display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    flex-wrap: wrap; */
+
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    padding: 3rem;
+    justify-content: center;
+}
+
+.contact-img{
+    height: 180px;
+    width: 180px;
+    border-radius: .3rem;
+    cursor: pointer;
 }

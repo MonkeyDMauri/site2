@@ -87,7 +87,7 @@ function display_user_info_in_left_panel(userInfo) {
         console.log("No profile pic");
 
         profilePicWrap.innerHTML = `
-            <img class="profile-pic-left-panel" src="${userInfo.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}">
+            <img class="profile-pic-left-panel" src=${userInfo.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"} >
         `;
     } else {
         profilePicWrap.innerHTML = `
@@ -113,6 +113,13 @@ function show_settings() {
     const innerLeftPanelContent = _(".inner-left-panel-content");
     innerLeftPanelContent.innerHTML = " ";
 
+    // if the user openes settings the style for element changes.
+    if (!innerLeftPanelContent.classList.contains("flex")) {
+        innerLeftPanelContent.classList.toggle("flex");
+    }
+
+    
+
     // displaying profile picture depeding on users img
 
     if (!loggedUserInfo.img) {
@@ -126,6 +133,10 @@ function show_settings() {
 
             <label for="change-pic-input" class="change-profile-pic-btn">Change picture</label>
             <input type="file" class="change-pic-input" id="change-pic-input" style="display:none;">
+        </div>
+
+        <div class="change-user-info-wrapper">
+            <h1>Change user info</h1>
         </div>
 
         `;
@@ -145,6 +156,8 @@ function show_settings() {
         <div class="change-user-info-wrapper">
             <h1>Change user info</h1>
         </div>
+
+        
         `;
     }
 
@@ -235,4 +248,75 @@ async function saveImgToDB(userId, imageName) {
     }
 
     console.log("image name:", data.name);
+}
+
+
+// CODE TO SHOW CONTACTS.
+
+const contactsBtn = _(".contacts-btn");
+contactsBtn.addEventListener("click", get_contacts);
+
+// variable to store all contacts
+let allContacts;
+
+// function to get all contacts besides current logged user info
+function get_contacts() {
+
+    fetch("../backend/chat_backend/get_contacts.php")
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            console.log("Contacts retreived:", data.contacts);
+            data.contacts.forEach(contact => console.log("Contact retreived:", contact));
+            allContacts = data.contacts;
+
+            // show contacts.
+            show_contacts(allContacts);
+        } else {
+            console.log(data.error);
+        }
+    })
+}
+
+get_contacts();
+
+
+function show_contacts(allContacts) {
+
+    // grabbing and cleaning div where settings will be displayed.
+    const innerLeftPanelContent = _(".inner-left-panel-content");
+    innerLeftPanelContent.innerHTML = " ";
+
+    // if the user openes settings the style for element changes.
+    innerLeftPanelContent.classList.toggle("flex");
+    
+
+    const contactWrapper = document.createElement("div");
+    contactWrapper.classList.add("contacts-wrapper");
+
+    innerLeftPanelContent.appendChild(contactWrapper);
+
+
+    allContacts.forEach(contact => {
+        const contactWrap = document.createElement("div");
+        contactWrap.classList.add("contact-wrap");
+
+        if (contact.img) {
+            contactWrap.innerHTML = `
+                <img src="../backend/chat_backend/uploads/${contact.img}" class="contact-img">
+                <div class="contact-name">${contact.username}</div>
+            `;
+        } else {
+            contactWrap.innerHTML = `
+                <img src=${contact.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}
+                class="contact-img">
+                <div class="contact-name">${contact.username}</div>
+            `;
+        }
+
+        contactWrapper.appendChild(contactWrap);
+
+        
+    })
+
 }
