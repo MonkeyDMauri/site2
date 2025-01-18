@@ -16,13 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 mkdir($folder, 0777, true);
             }
 
+            // creating destination for uploaded image.
             $destination = $folder . $_FILES["file"]["name"];
+            // moving uploaded pic to destination
             move_uploaded_file($_FILES["file"]["tmp_name"], $destination);
 
 
             echo json_encode([
                 "success" => true,
-                "name" => $_FILES["file"]
+                "img" => $_FILES["file"]["name"],
+                "name" => $_FILES["file"]["name"]
             ]);
         } else {
             echo json_encode([

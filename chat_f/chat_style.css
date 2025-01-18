@@ -128,7 +128,13 @@ body.no-scroll {
     background-color: rgb(56, 104, 194);
     cursor: pointer;
     font-size: 1.5rem;
+    transition: all 300ms ease-in-out;
 }
+
+.left-panel-btn:hover {
+    background-color: rgb(10, 52, 129);
+}
+
 .left-panel-button-icons {
     height: 40px;
     float: right;
@@ -185,14 +191,15 @@ body.no-scroll {
 /*INNER LEFT PANEL*/
 
 .settings-profile-pic {
-    height: 140px;
-    width: 140px;
+    height: 160px;
+    width: 160px;
 }
 
 .inner-left-panel-content {
     display: flex;
     justify-content: center;
     padding: 1rem;
+    gap:1rem;
 }
 
 .chage-pic-wrapper {
@@ -210,4 +217,13 @@ body.no-scroll {
     border-radius: .5rem;
     font-weight: 600;
     cursor: pointer;
+}
+
+/* UPDATE USER INFO */
+
+.change-user-info-wrapper {
+    background-color: rgb(0, 33, 95);
+    padding: 1rem;
+    border-radius: .5rem;
+    color: aliceblue;
 }

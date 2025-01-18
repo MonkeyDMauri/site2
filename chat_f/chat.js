@@ -50,17 +50,16 @@ function logout() {
 
 let loggedUserInfo;
 
-function get_logged_user_info() {
+async function get_logged_user_info() {
+    try {
+        const res = await fetch("../backend/chat_backend/get_logged_user_info.php")
 
-    fetch("../backend/chat_backend/get_logged_user_info.php")
-    .then(res => {
         if (!res.ok) {
             throw new Error("Network response was not ok:", res.status);
-        } else {
-            return res.json();
         }
-    })
-    .then(data => {
+
+        const data = await res.json();
+    
         if (data.success) {
             loggedUserInfo = data.result;
             console.log("User data was retreived");
@@ -71,10 +70,9 @@ function get_logged_user_info() {
         } else {
             console.log(data.error);
         }
-    })
-    .catch(err => {
+    } catch(err){
         console.log(err);
-    })
+    }
 }
 
 get_logged_user_info();
@@ -90,6 +88,10 @@ function display_user_info_in_left_panel(userInfo) {
 
         profilePicWrap.innerHTML = `
             <img class="profile-pic-left-panel" src="${userInfo.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}">
+        `;
+    } else {
+        profilePicWrap.innerHTML = `
+            <img class="profile-pic-left-panel" src="../backend/chat_backend/uploads/${userInfo.img}">
         `;
     }
 
@@ -127,6 +129,23 @@ function show_settings() {
         </div>
 
         `;
+    } else {
+        innerLeftPanelContent.innerHTML = `
+
+        <div class="chage-pic-wrapper">
+            <div class="settings-left-panel">
+                <img src="../backend/chat_backend/uploads/${loggedUserInfo.img}"
+                class="settings-profile-pic">
+            </div>
+
+            <label for="change-pic-input" class="change-profile-pic-btn">Change picture</label>
+            <input type="file" class="change-pic-input" id="change-pic-input" style="display:none;">
+        </div>
+
+        <div class="change-user-info-wrapper">
+            <h1>Change user info</h1>
+        </div>
+        `;
     }
 
     // this line has to go inside this function just so we can trigger a function if the user selects a pic to upload
@@ -138,6 +157,13 @@ function show_settings() {
 
 // function to upload pic to working directory and also save it to database.
 async function upload_new_profile_pic(files) {
+
+    if (!files.length) {
+        console.error("No file selected");
+        return;
+    }
+
+    console.log(files);
 
     // storing image in a form.
     let formFile = new FormData();
@@ -157,15 +183,56 @@ async function upload_new_profile_pic(files) {
 
         if (data.success) {
             console.log("Pic was uploaded");
-            console.log("image details:", data.name);
+            console.log("image details:", data.img);
+            await saveImgToDB(loggedUserInfo.id, data.name);
         } else {
             console.log(data.error);
         }
     } catch(err) {
         console.log(err)
     }
+}
 
-    
+async function saveImgToDB(userId, imageName) {
 
+    // data to turn into json and then send it to php file to handle the process of storing this img name into db.
+    const dataObj = {
+        "userId" : userId,
+        "imgName": imageName
+    }
 
+    console.log("user id:", userId);
+    console.log("image name:", imageName);
+
+    const res = await fetch("../backend/chat_backend/save_img_to_db.php", {
+        method: "POST",
+        headers: {
+            "Content-Type":"application/json"
+        },
+        body: JSON.stringify(dataObj)
+    })
+
+    if (!res.ok) {
+        throw new Error("Network response wasnt ok:", res.status);
+    }
+
+    const data = await res.json();
+
+    if (data.success) {
+        console.log(imageName, "was saved to db");
+
+        //after updating the users table we will wanna show the new pic;
+        // first we will get updated logged user info.
+        await get_logged_user_info();
+
+        // update pic in left panel
+        display_user_info_in_left_panel(loggedUserInfo);
+
+        // update pic in settings
+        show_settings();
+    } else {
+        console.log(data.error);
+    }
+
+    console.log("image name:", data.name);
 }
