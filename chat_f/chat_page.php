@@ -54,6 +54,8 @@ if (!isset($_SESSION["logged_in"]) && !$_SESSION["logged_in"] === true) {
                     <input type="radio" name="radio" id="radio-show-chats">
                     <input type="radio" name="radio" id="radio-hide-chats" checked>
                     <div class="inner-left-panel">
+                        <img src="../UI/ui/icons/giphy.gif" alt="loading gif"
+                        class="loading-gif">
                         <div class="inner-left-panel-content flex">
                             <!-- this here will be filled with data depending on wether the user wants to see the contacts, chats, or settings. -->
                         </div>

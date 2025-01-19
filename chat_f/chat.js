@@ -102,6 +102,41 @@ function display_user_info_in_left_panel(userInfo) {
 
 }
 
+// CODE TO SHOW CHATS.
+
+// this function will store the info of a contact the user clicks on so it can then be displayed in the chats sections.
+let selectedContact;
+
+const chatsBtn = _(".chats-btn");
+chatsBtn.addEventListener("click", show_chats);
+
+async function show_chats() {
+    console.log("chats");
+
+    // clearing inner left panel content element.
+    const innerLeftPanelContent = _(".inner-left-panel-content");
+    innerLeftPanelContent.innerHTML = "";
+
+    // if the user openes settings the style for element changes.
+    if (!innerLeftPanelContent.classList.contains("flex")) {
+        innerLeftPanelContent.classList.toggle("flex");
+    }
+
+    if (!selectedContact) {
+        innerLeftPanelContent.innerHTML = `
+            <h2 style="color:white;">No contact selected</h2>
+        `;
+    }
+}
+
+// checking to see if user clicks on a contact
+
+// this function will be triggered whenever the user clicks ona contact.
+async function get_selected_contact_info() {
+
+
+}
+
 // CODE TO SHOW SETTINGS
 
 const settingsBtn = _(".settings-btn");
@@ -262,15 +297,24 @@ let allContacts;
 // function to get all contacts besides current logged user info
 function get_contacts() {
 
+    // grabbing and cleaning div where settings will be displayed.
+    const innerLeftPanelContent = _(".inner-left-panel-content");
+    innerLeftPanelContent.innerHTML = " ";
+
+    // showing loading animated gif.
+    const loadingGif = _(".loading-gif");
+    loadingGif.style.display = "flex";
+
     fetch("../backend/chat_backend/get_contacts.php")
     .then(res => res.json())
     .then(data => {
         if (data.success) {
             console.log("Contacts retreived:", data.contacts);
-            data.contacts.forEach(contact => console.log("Contact retreived:", contact));
+            // data.contacts.forEach(contact => console.log("Contact retreived:", contact));
             allContacts = data.contacts;
 
             // show contacts.
+            loadingGif.style.display = "none"
             show_contacts(allContacts);
         } else {
             console.log(data.error);
@@ -283,14 +327,16 @@ get_contacts();
 
 function show_contacts(allContacts) {
 
+
     // grabbing and cleaning div where settings will be displayed.
     const innerLeftPanelContent = _(".inner-left-panel-content");
     innerLeftPanelContent.innerHTML = " ";
 
-    // if the user openes settings the style for element changes.
-    innerLeftPanelContent.classList.toggle("flex");
+     // if the user openes contacts the style for this element changes.
+     if (innerLeftPanelContent.classList.contains("flex")) {
+        innerLeftPanelContent.classList.toggle("flex");
+    }
     
-
     const contactWrapper = document.createElement("div");
     contactWrapper.classList.add("contacts-wrapper");
 
@@ -304,13 +350,13 @@ function show_contacts(allContacts) {
         if (contact.img) {
             contactWrap.innerHTML = `
                 <img src="../backend/chat_backend/uploads/${contact.img}" class="contact-img">
-                <div class="contact-name">${contact.username}</div>
+                <div class="contact-name" data-id="${contact.id}">${contact.username}</div>
             `;
         } else {
             contactWrap.innerHTML = `
                 <img src=${contact.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}
                 class="contact-img">
-                <div class="contact-name">${contact.username}</div>
+                <div class="contact-name" data-id="${contact.id}">${contact.username}</div>
             `;
         }
 

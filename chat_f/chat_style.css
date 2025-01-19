@@ -171,6 +171,16 @@ body.no-scroll {
     min-height: 600px;
     background: rgb(1, 61, 173);
     flex: 1;
+    position: relative;
+}
+
+.loading-gif {
+    position: absolute;
+    height: 100px;
+    width:100px;
+    top: 200px;
+    left: 350px;
+    display: none;
 }
 
 .inner-right-panel {

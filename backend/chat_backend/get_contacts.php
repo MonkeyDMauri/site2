@@ -3,6 +3,8 @@
 
 if ($_SERVER["REQUEST_METHOD"] === "GET") {
     header("Content-Type:application/json");
+    // this sleep function is to allow the loading gif to be seen for a second.
+    sleep(1);
 
     try {
         require_once "../general/dbh.php";
