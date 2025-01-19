@@ -8,7 +8,7 @@ session_start();
 if (!isset($_SESSION["last_regeneration"])) {
     regenerate_id();
 } else {
-    $intervale = 10;
+    $intervale = 30 * 60;
 
     if (time() - $_SESSION["last_regeneration"] >= $intervale) {
         regenerate_id();

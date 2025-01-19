@@ -263,3 +263,15 @@ body.no-scroll {
     border-radius: .3rem;
     cursor: pointer;
 }
+
+
+.selected-contact-wrapper {
+    text-align: center;
+}
+.selected-contact-img {
+    height: 150px;
+    width: 150px;
+    border-radius: .3rem;
+}
+
+

@@ -126,14 +126,87 @@ async function show_chats() {
         innerLeftPanelContent.innerHTML = `
             <h2 style="color:white;">No contact selected</h2>
         `;
+    } else {
+
+        // checking if selecte contact hs a profile image in db.
+        if (selectedContact.img) {
+            innerLeftPanelContent.innerHTML = `
+            <div class="selected-contact-wrapper">
+                <h2 style="color:white;">Now chatting with:</h2>
+                <div class="selected-contact-wrap">
+                    <img src="../backend/chat_backend/uploads/${selectedContact.img}" class="selected-contact-img">
+                    <h2 class="selected-contact-name" style="color:white;">${selectedContact.username}</h2>
+                </div>
+            </div>
+            `;
+        } else {
+            innerLeftPanelContent.innerHTML = `
+            <div class="selected-contact-wrapper">
+                <h2 style="color:white;">Now chatting with:</h2>
+                <div class="selected-contact-wrap">
+                    <img src=${selectedContact.gender === "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"} class="selected-contact-img">
+                    <h2 class="selected-contact-name" style="color:white;">${selectedContact.username}</h2>
+                </div>
+            </div>
+            `;
+        }
+        
     }
 }
 
 // checking to see if user clicks on a contact
+document.addEventListener("click", e => {
+    if (e.target.closest(".contact-wrap")) {
+        get_selected_contact_info(e);
+    }
+})
 
 // this function will be triggered whenever the user clicks ona contact.
-async function get_selected_contact_info() {
+async function get_selected_contact_info(e) {
 
+    // whenever the user licks on a contact we wanna make sure to make the chat section visible.
+    const radioChats = _("#radio-show-chats");
+    radioChats.checked = true;
+
+    // grabbing contact element
+    const contactWrap = e.target.closest(".contact-wrap");
+    // grabbing element containing contact name, this eement also contains the contact id as an attribute
+    const contactName = contactWrap.querySelector(".contact-name");
+    const contactId = contactName.getAttribute("data-id");
+
+    console.log(contactId);
+
+    // object data to send.
+    const objData = {
+        "contactId" : contactId
+    }
+
+    try {
+
+        const res = await fetch("../backend/chat_backend/get_selected_contact_info.php", {
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body: JSON.stringify(objData)
+        });
+
+        if (!res.ok) {
+            throw new Error("NEtwork response was not ok:", res.status);
+        }
+
+        const data = await res.json();
+
+        if (data.success) {
+            selectedContact = data.contactInfo;
+            console.log("Contact info:", selectedContact);
+            show_chats();
+        } else {
+            console.log(data.error);
+        }
+    } catch(error) {
+        console.log(error);
+    }
 
 }
 
@@ -143,6 +216,8 @@ const settingsBtn = _(".settings-btn");
 settingsBtn.addEventListener("click", show_settings);
 
 function show_settings() {
+
+    
 
     // grabbing and cleaning div where settings will be displayed.
     const innerLeftPanelContent = _(".inner-left-panel-content");
@@ -305,6 +380,12 @@ function get_contacts() {
     const loadingGif = _(".loading-gif");
     loadingGif.style.display = "flex";
 
+    // makig buttons in left panel unclickable while getting contacts to display.
+    const leftPanelBtns = document.querySelectorAll(".left-panel-btn");
+    leftPanelBtns.forEach(btn => {
+        btn.style.pointerEvents = "none";
+    });
+
     fetch("../backend/chat_backend/get_contacts.php")
     .then(res => res.json())
     .then(data => {
@@ -315,6 +396,11 @@ function get_contacts() {
 
             // show contacts.
             loadingGif.style.display = "none"
+
+            // making left panel buttons clickable again.
+            leftPanelBtns.forEach(btn => {
+                btn.style.pointerEvents = "auto";
+            });
             show_contacts(allContacts);
         } else {
             console.log(data.error);
@@ -350,13 +436,13 @@ function show_contacts(allContacts) {
         if (contact.img) {
             contactWrap.innerHTML = `
                 <img src="../backend/chat_backend/uploads/${contact.img}" class="contact-img">
-                <div class="contact-name" data-id="${contact.id}">${contact.username}</div>
+                <div class="contact-name" data-id="${contact.id}" style="color:white; font-size:1.5rem;">${contact.username}</div>
             `;
         } else {
             contactWrap.innerHTML = `
                 <img src=${contact.gender == "male"? "../UI/ui/images/male.jpeg" : "../UI/ui/images/female.jpeg"}
                 class="contact-img">
-                <div class="contact-name" data-id="${contact.id}">${contact.username}</div>
+                <div class="contact-name" data-id="${contact.id}" style="color:white; font-size:1.5rem;">${contact.username}</div>
             `;
         }
 
